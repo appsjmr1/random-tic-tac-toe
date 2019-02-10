@@ -1,4 +1,10 @@
-class Statistics:
+from reports import Reports
+
+
+class ReportOnManyGames(Reports):
+
+    def __init__(self):
+        Reports.__init__(self)
 
     number_of_x_wins = 0
     number_of_o_wins = 0
@@ -19,5 +25,3 @@ class Statistics:
         print('Proportion of X wins: ' + str(cls.number_of_x_wins/total_games))
         print('Proportion of O wins: ' + str(cls.number_of_o_wins / total_games))
         print('Proportion of ties: ' + str(cls.number_of_ties / total_games))
-
-
