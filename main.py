@@ -1,12 +1,13 @@
+from game_state import GameState
 
 
 # main.py module has a GameLogic
-game_logic = GameLogic()
+game_state = GameState()
 
-# to suppress end of game reports comment out the following line
-# game_logic.report_game.turn_on_end_of_game_reporting()
+# Pass True to set_end_of_game_reporting to report on each game
+game_state.report_game.set_end_of_game_reporting(False)
 
 # parameter passed to play_games determines the number of games that will be played
-game_logic.play_game(1000000)
+game_state.play_game(1000000)
 # shows percentage of wins from X and O as well as percentage of ties
-game_logic.report_many_games.report_outcome_statistics()
+game_state.report_many_games.report_outcome_statistics()

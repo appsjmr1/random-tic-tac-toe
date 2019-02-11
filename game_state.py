@@ -6,14 +6,21 @@ from report_on_many_games import ReportOnManyGames
 class GameState:
 
     def __init__(self):
-        # game board
-        # Google how to create an initializing function [to create the below double list with loops]
-        self.board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
-        # Google how to create an initializing function [to create the below double list with loops]
-        self.available_squares = [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]]
+        self.board = None
+        self.available_squares = None
+        self.initialize_board_and_available_squares()
         self.next_move = 'X'
         self.previous_move = 'O'
-        self.letter_dict = {'X': -1, 'O': 1}
+        self.letter_dict = {'X': -1, 'O': 1, ' ': 0}
+        self.x_won = False
+        self.o_won = False
+        self.tie = False
+        self.report_game = ReportOnGame()
+        self.report_many_games = ReportOnManyGames()
+
+    def initialize_board_and_available_squares(self):
+        self.board = [[' ' for i in range(3)] for j in range(3)]
+        self.available_squares = [[i, j] for i in range(3) for j in range(3)]
 
     # Printing an instance of the class will display a standard
     # tic tac toe game image.
@@ -23,8 +30,10 @@ class GameState:
     # responsible for playing the number of games requested from main.py
     def play_game(self, number_of_games):
         while number_of_games > 0:
+            self.report_game = ReportOnGame()
             self.next_move = 'X'
             self.previous_move = 'O'
+            self.initialize_board_and_available_squares()
             game_in_progress = True
             while game_in_progress:
                 game_in_progress = self.make_move()
@@ -48,28 +57,61 @@ class GameState:
         self.previous_move = temp
         return True
 
-
-        # if self.game_won():
-           #  return True
-        # elif self.game_tied():
-            # return True
-        # else:
-            # return False
-
     def game_over(self, row_index, column_index):
-        pass
 
+        # check row containing most recent move for win
+        total = 0
+        for column in range(3):
+            total = total + int(self.letter_dict[self.board[row_index][column]])
+            if abs(total) == 3:
+                self.end_of_game(self.board[row_index][column_index])
+                return True
 
+        # check column containing most recent move for win
+        total = 0
+        for row in range(3):
+            total = total + int(self.letter_dict[self.board[row][column_index]])
+            if abs(total) == 3:
+                self.end_of_game(self.board[row_index][column_index])
+                return True
 
-    self.report_game.x_won = True
-    self.report_many_games.track_game_outcomes('x_won')
+        # check for win on main-diagonal if it contains most recent move
+        if row_index == column_index:
+            total = 0
+            for diagonal_indexing in range(3):
+                total = total + int(self.letter_dict[self.board[diagonal_indexing][diagonal_indexing]])
+                if abs(total) == 3:
+                    self.end_of_game(self.board[row_index][column_index])
+                    return True
 
-    self.report_game.o_won = True
-    self.report_many_games.track_game_outcomes('o_won')
+        # check for win on off-diagonal if it contains most recent move
+        if row_index + column_index == 2:
+            total = 0
+            for off_diagonal_indexing in range(3):
+                total = total + int(self.letter_dict[self.board[off_diagonal_indexing][2-off_diagonal_indexing]])
+                if abs(total) == 3:
+                    self.end_of_game(self.board[row_index][column_index])
+                    return True
 
-    self.report_game.tie = True
-    self.report_many_games.track_game_outcomes('tie')
+        if len(self.available_squares) == 0:
+            self.end_of_game()
+            return True
 
-    if self.report_game.end_of_game_report is True:
-        self.report_game.end_of_game_reporter(self.game_state.__str__())
+        return False
+
+    def end_of_game(self, win_result='Tie'):
+        if self.report_game.end_of_game_report:
+            self.report_game.end_of_game_reporter(self, win_result)
+
+        if win_result == 'X':
+            self.report_game.x_won = True
+            self.report_many_games.track_game_outcomes('x_won')
+
+        elif win_result == 'O':
+            self.report_game.o_won = True
+            self.report_many_games.track_game_outcomes('o_won')
+
+        else:
+            self.report_game.tie = True
+            self.report_many_games.track_game_outcomes('tie')
 

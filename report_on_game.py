@@ -1,23 +1,18 @@
-from reports import Reports
-
-
-class ReportOnGame(Reports):
+class ReportOnGame:
 
     end_of_game_report = False
 
-    def __init__(self):
-        Reports.__init__(self)
-
     @classmethod
-    def turn_on_end_of_game_reporting(cls):
-        cls.end_of_game_report = True
+    def set_end_of_game_reporting(cls, boolean_set):
+        cls.end_of_game_report = boolean_set
 
     # call turn_on_end_of_game_reporting from main.py to run this report method
-    def end_of_game_reporter(self, board):
+    @staticmethod
+    def end_of_game_reporter(board, result='Its a tie'):
         print(board)
-        if self.x_won:
-            print('X won\n')
-        elif self.o_won:
-            print('O won\n')
+        if result == 'X':
+            print(result + ' won\n')
+        elif result == 'O':
+            print(result + ' won\n')
         else:
-            print('Its a tie\n')
+            print(result + '\n')

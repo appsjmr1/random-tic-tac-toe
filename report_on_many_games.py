@@ -1,10 +1,4 @@
-from reports import Reports
-
-
-class ReportOnManyGames(Reports):
-
-    def __init__(self):
-        Reports.__init__(self)
+class ReportOnManyGames:
 
     number_of_x_wins = 0
     number_of_o_wins = 0
