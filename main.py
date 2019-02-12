@@ -7,7 +7,7 @@ report_on_game = ReportOnGame()
 report_on_many_games = ReportOnManyGames()
 
 # Pass True to set_end_of_game_reporting to report on each game
-#report_on_game.set_end_of_game_reporting(True)
+# report_on_game.set_end_of_game_reporting(True)
 
 # parameter passed to play_games determines the number of games that will be played
 games_engine.play_game(1000000)

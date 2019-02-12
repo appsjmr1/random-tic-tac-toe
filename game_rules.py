@@ -5,6 +5,7 @@ class GameRules:
         self.winning_letter = None
 
     def game_over(self, game_state, row_index, column_index):
+
         # check row containing most recent move for win
         total = 0
         for column in range(3):

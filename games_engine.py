@@ -43,14 +43,8 @@ class GamesEngine:
         return True
 
     def between_game_reporting(self, win_result='Tie'):
+
         if self.report_on_game.end_of_game_report:
             self.report_on_game.end_of_game_reporter(self.game_state, win_result)
 
-        if win_result == 'X':
-            self.report_on_many_games.track_game_outcomes('x_won')
-
-        elif win_result == 'O':
-            self.report_on_many_games.track_game_outcomes('o_won')
-
-        else:
-            self.report_on_many_games.track_game_outcomes('tie')
+        self.report_on_many_games.track_game_outcomes(win_result)
