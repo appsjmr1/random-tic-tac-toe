@@ -10,7 +10,6 @@ class GamesEngine:
     def __init__(self):
         self.game_state_instance = GameState()
         self.game_rules_instance = GameRules()
-        self.report_on_game_instance = None
         self.report_on_many_games_instance = ReportOnManyGames()
 
     # responsible for playing the number of games requested from main.py
@@ -23,7 +22,6 @@ class GamesEngine:
         self.report_on_many_games_instance.report_outcome_statistics()
 
     def initialize_instances_for_new_game(self):
-        self.report_on_game_instance = ReportOnGame()
         self.game_state_instance = GameState()
 
     def play_one_game(self):
@@ -54,7 +52,7 @@ class GamesEngine:
 
     def between_game_reporting(self, win_result='Tie'):
 
-        if self.report_on_game_instance.end_of_game_report:
-            self.report_on_game_instance.end_of_game_reporter(self.game_state_instance, win_result)
+        if ReportOnGame.end_of_game_report:
+            ReportOnGame.end_of_game_reporter(self.game_state_instance, win_result)
 
         self.report_on_many_games_instance.track_game_outcomes(win_result)

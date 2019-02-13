@@ -8,11 +8,9 @@ class ReportOnGame:
 
     # call turn_on_end_of_game_reporting from main.py to run this report method
     @staticmethod
-    def end_of_game_reporter(board, result='Its a tie'):
+    def end_of_game_reporter(board, result='Tie'):
         print(board)
-        if result == 'X':
-            print(result + ' won\n')
-        elif result == 'O':
+        if result != 'Tie':
             print(result + ' won\n')
         else:
             print(result + '\n')
