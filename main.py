@@ -13,4 +13,5 @@ def run(game_report_on, number_of_games):
     games_engine_instance.play_many_games(number_of_games)
 
 
-run(True, 10)
+if __name__ == '__main__':
+    run(False, 1000000)
