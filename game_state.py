@@ -14,4 +14,4 @@ class GameState:
     # Printing an instance of the class will display a standard
     # tic tac toe game image.
     def __str__(self):
-        return "\n" + self.board[0][0] + "|" + self.board[0][1] + "|" + self.board[0][2] + "\n"+ self.board[1][0] + "|" + self.board[1][1] + "|" + self.board[1][2] + "\n" + self.board[2][0] + "|" + self.board[2][1] + "|" + self.board[2][2]
+        return "\n" + self.board[0][0] + "|" + self.board[0][1] + "|" + self.board[0][2] + "\n" + self.board[1][0] + "|" + self.board[1][1] + "|" + self.board[1][2] + "\n" + self.board[2][0] + "|" + self.board[2][1] + "|" + self.board[2][2]
