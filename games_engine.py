@@ -1,16 +1,13 @@
 import random
 from game_state import GameState
-from game_rules import GameRules
-from report_on_game import ReportOnGame
-from report_on_many_games import ReportOnManyGames
+from find_and_report_winner import FindAndReportWinner
 
 
 class GamesEngine:
 
     def __init__(self):
         self.game_state_instance = GameState()
-        self.game_rules_instance = GameRules()
-        self.report_on_many_games_instance = ReportOnManyGames()
+        self.find_and_report_winner_instance = FindAndReportWinner()
 
     # responsible for playing the number of games requested from main.py
     def play_many_games(self, number_of_games):
@@ -19,7 +16,7 @@ class GamesEngine:
             self.play_one_game()
             number_of_games -= 1
         # shows percentage of wins from X and O as well as percentage of ties
-        self.report_on_many_games_instance.report_outcome_statistics()
+        self.find_and_report_winner_instance.report_outcome_statistics()
 
     def initialize_instances_for_new_game(self):
         self.game_state_instance = GameState()
@@ -39,20 +36,13 @@ class GamesEngine:
         self.game_state_instance.available_squares.remove([row_index, column_index])
         # make move
         self.game_state_instance.board[row_index][column_index] = self.game_state_instance.next_move
-        # call game_over to see if the game is over
-        game_over_truthy_falsy = self.game_rules_instance.game_over(self.game_state_instance, row_index, column_index)
+        # call find_winner_or_tie to see if the game is over
+        game_over_truthy_falsy = self.find_and_report_winner_instance.find_winner_or_tie(self.game_state_instance, row_index, column_index)
         if game_over_truthy_falsy:
-            self.between_game_reporting(game_over_truthy_falsy)
+            self.find_and_report_winner_instance.reporting_after_each_game(self.game_state_instance, game_over_truthy_falsy)
             return False
         # update who moves next
         temp = self.game_state_instance.next_move
         self.game_state_instance.next_move = self.game_state_instance.previous_move
         self.game_state_instance.previous_move = temp
         return True
-
-    def between_game_reporting(self, win_result='Tie'):
-
-        if ReportOnGame.end_of_game_report:
-            ReportOnGame.end_of_game_reporter(self.game_state_instance, win_result)
-
-        self.report_on_many_games_instance.track_game_outcomes(win_result)
