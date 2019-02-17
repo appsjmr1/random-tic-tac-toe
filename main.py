@@ -1,3 +1,4 @@
+import sys
 from games_engine import GamesEngine
 from report_on_game import ReportOnGame
 from report_on_many_games import ReportOnManyGames
@@ -22,4 +23,7 @@ def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
 
 
 if __name__ == '__main__':
-    run_random_tic_tac_toe_simulation(1000000)
+    game_count_report_toggle = [int(sys.argv[1])]
+    if len(sys.argv) == 3:
+        game_count_report_toggle.append(sys.argv[2])
+    run_random_tic_tac_toe_simulation(*game_count_report_toggle)
