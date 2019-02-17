@@ -1,11 +1,6 @@
-from report_on_game import ReportOnGame
-from report_on_many_games import ReportOnManyGames
-
-
-class FindAndReportGameOutcome(ReportOnGame, ReportOnManyGames):
+class FindGameOutcome:
 
     def __init__(self):
-        ReportOnManyGames.__init__(self)
         self.letter_dict = {'X': -1, 'O': 1, ' ': 0}
 
     def find_winner_or_tie(self, game_state_instance, row_index_of_move_just_made, column_index_of_move_just_made):
@@ -52,11 +47,3 @@ class FindAndReportGameOutcome(ReportOnGame, ReportOnManyGames):
             return 'Tie'
 
         return ''
-
-    def reporting_after_each_game(self, game_state_instance, win_result='Tie'):
-
-        if self.end_of_game_report:
-            self.end_of_game_reporter(game_state_instance, win_result)
-
-        self.__call__(win_result)
-

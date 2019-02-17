@@ -1,20 +1,25 @@
 from games_engine import GamesEngine
-from find_and_report_game_outcome import FindAndReportGameOutcome
+from report_on_game import ReportOnGame
+from report_on_many_games import ReportOnManyGames
 
 
-def run_random_tic_tac_toe_simulation(game_report_on, num_games_to_play):
-    '''num_games_to_play determines how many games will be played, with random moves,
-    during the simulation (X always moves first).
-    game_repot_on is a boolean that determines whether the board is printed after each game.'''
+def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
 
-    # Pass True to set_end_of_game_reporting to report on each game
-    FindAndReportGameOutcome.set_end_of_game_reporting(game_report_on)
+    report_requests = []
+    if report_all_games is not None:
+        report_on_game_instance = ReportOnGame()
+        report_requests.append(report_on_game_instance)
+    report_on_many_games_instance = ReportOnManyGames()
+    report_requests.append(report_on_many_games_instance)
 
-    games_engine_instance = GamesEngine()
+    games_engine_instance = GamesEngine(*report_requests)
 
     # parameter passed to play_many_games determines the number of games that will be played
     games_engine_instance.play_many_games(num_games_to_play)
 
+    # shows percentage of wins from X and O as well as percentage of ties
+    report_on_many_games_instance.report_outcome_statistics()
+
 
 if __name__ == '__main__':
-    run_random_tic_tac_toe_simulation(False, 1000000)
+    run_random_tic_tac_toe_simulation(1000000)

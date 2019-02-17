@@ -1,15 +1,16 @@
 import random
 from game_state import GameState
-from find_and_report_game_outcome import FindAndReportGameOutcome
+from find_game_outcome import FindGameOutcome
 
 
 class GamesEngine:
 
-    def __init__(self):
+    def __init__(self, *reports_requested):
         self.game_state_instance = GameState()
-        self.find_and_report_game_outcome_instance = FindAndReportGameOutcome()
+        self.find_and_report_game_outcome_instance = FindGameOutcome()
         self.row_index_for_move = None
         self.column_index_for_move = None
+        self.reports_requested = reports_requested
 
     # responsible for playing the number of games requested from main.py
     def play_many_games(self, num_games_to_play):
@@ -17,8 +18,6 @@ class GamesEngine:
             self.initialize_instances_for_new_game()
             self.play_one_game()
             num_games_to_play -= 1
-        # shows percentage of wins from X and O as well as percentage of ties
-        self.find_and_report_game_outcome_instance.report_outcome_statistics()
 
     def initialize_instances_for_new_game(self):
         self.game_state_instance = GameState()
@@ -31,8 +30,10 @@ class GamesEngine:
             self.update_who_moves_next()
 
             game_result_as_string = self.game_is_over()
+
             if game_result_as_string:
-                self.find_and_report_game_outcome_instance.reporting_after_each_game(self.game_state_instance, game_result_as_string)
+                for report_calls in self.reports_requested:
+                    report_calls(self.game_state_instance, game_result_as_string)
                 game_over = True
 
     def make_move(self):
