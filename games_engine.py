@@ -10,11 +10,11 @@ class GamesEngine:
         self.find_and_report_winner_instance = FindAndReportWinner()
 
     # responsible for playing the number of games requested from main.py
-    def play_many_games(self, number_of_games):
-        while number_of_games > 0:
+    def play_many_games(self, num_games_to_play):
+        while num_games_to_play > 0:
             self.initialize_instances_for_new_game()
             self.play_one_game()
-            number_of_games -= 1
+            num_games_to_play -= 1
         # shows percentage of wins from X and O as well as percentage of ties
         self.find_and_report_winner_instance.report_outcome_statistics()
 
@@ -28,18 +28,18 @@ class GamesEngine:
 
     def make_move(self):
 
-        # randomly select an available square from the available_squares set, and store as a list of length 1
-        position_as_list_of_list = random.sample(self.game_state_instance.available_squares, 1)
-        row_index = position_as_list_of_list[0][0]
-        column_index = position_as_list_of_list[0][1]
-        # remove the available square we will shortly use from the available_squares list
-        self.game_state_instance.available_squares.remove([row_index, column_index])
+        # randomly select an available square for next move
+        square_for_next_move_as_list_of_list = random.sample(self.game_state_instance.available_squares, 1)
+        row_index_for_move = square_for_next_move_as_list_of_list[0][0]
+        column_index_for_move = square_for_next_move_as_list_of_list[0][1]
+        # remove, from the available_squares list, the square we will use
+        self.game_state_instance.available_squares.remove([row_index_for_move, column_index_for_move])
         # make move
-        self.game_state_instance.board[row_index][column_index] = self.game_state_instance.next_move
+        self.game_state_instance.board[row_index_for_move][column_index_for_move] = self.game_state_instance.next_move
         # call find_winner_or_tie to see if the game is over
-        game_over_truthy_falsy = self.find_and_report_winner_instance.find_winner_or_tie(self.game_state_instance, row_index, column_index)
-        if game_over_truthy_falsy:
-            self.find_and_report_winner_instance.reporting_after_each_game(self.game_state_instance, game_over_truthy_falsy)
+        game_result_as_string = self.find_and_report_winner_instance.find_winner_or_tie(self.game_state_instance, row_index_for_move, column_index_for_move)
+        if game_result_as_string:
+            self.find_and_report_winner_instance.reporting_after_each_game(self.game_state_instance, game_result_as_string)
             return False
         # update who moves next
         temp = self.game_state_instance.next_move
