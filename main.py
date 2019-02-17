@@ -1,5 +1,5 @@
 from games_engine import GamesEngine
-from find_and_report_winner import FindAndReportWinner
+from find_and_report_game_outcome import FindAndReportGameOutcome
 
 
 def run_random_tic_tac_toe_simulation(game_report_on, num_games_to_play):
@@ -8,7 +8,7 @@ def run_random_tic_tac_toe_simulation(game_report_on, num_games_to_play):
     game_repot_on is a boolean that determines whether the board is printed after each game.'''
 
     # Pass True to set_end_of_game_reporting to report on each game
-    FindAndReportWinner.set_end_of_game_reporting(game_report_on)
+    FindAndReportGameOutcome.set_end_of_game_reporting(game_report_on)
 
     games_engine_instance = GamesEngine()
 
@@ -17,4 +17,4 @@ def run_random_tic_tac_toe_simulation(game_report_on, num_games_to_play):
 
 
 if __name__ == '__main__':
-    run_random_tic_tac_toe_simulation(True, 10)
+    run_random_tic_tac_toe_simulation(False, 1000000)

@@ -8,9 +8,9 @@ class ReportOnGame:
 
     # call turn_on_end_of_game_reporting from main.py to run_random_tic_tac_toe_simulation this report method
     @staticmethod
-    def end_of_game_reporter(board, result='Tie'):
+    def end_of_game_reporter(board, win_result='Tie'):
         print(board)
-        if result != 'Tie':
-            print(result + ' won\n')
+        if win_result != 'Tie':
+            print(win_result + ' won\n')
         else:
-            print(result + '\n')
+            print(win_result + '\n')
