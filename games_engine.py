@@ -7,7 +7,7 @@ class GamesEngine:
 
     def __init__(self, *reports_requested):
         self.game_state_instance = GameState()
-        self.find_and_report_game_outcome_instance = FindGameOutcome()
+        self.find_game_outcome_instance = FindGameOutcome()
         self.row_index_for_move = None
         self.column_index_for_move = None
         self.reports_requested = reports_requested
@@ -15,21 +15,20 @@ class GamesEngine:
     # responsible for playing the number of games requested from main.py
     def play_many_games(self, num_games_to_play):
         while num_games_to_play > 0:
-            self.initialize_instances_for_new_game()
             self.play_one_game()
             num_games_to_play -= 1
 
-    def initialize_instances_for_new_game(self):
+    def play_one_game(self):
+
         self.game_state_instance = GameState()
 
-    def play_one_game(self):
         game_over = False
-
         while not game_over:
+
             self.make_move()
             self.update_who_moves_next()
 
-            game_result_as_string = self.game_is_over()
+            game_result_as_string = self.find_game_outcome_instance.find_winner_or_tie(self.game_state_instance, self.row_index_for_move, self.column_index_for_move)
 
             if game_result_as_string:
                 for report_calls in self.reports_requested:
@@ -52,9 +51,3 @@ class GamesEngine:
         self.game_state_instance.next_move = self.game_state_instance.previous_move
         self.game_state_instance.previous_move = temp
         return True
-
-    def game_is_over(self):
-        # call find_winner_or_tie to see if the game is over
-        game_result_as_string = self.find_and_report_game_outcome_instance.find_winner_or_tie(self.game_state_instance, self.row_index_for_move, self.column_index_for_move)
-        if game_result_as_string:
-            return game_result_as_string

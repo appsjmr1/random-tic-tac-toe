@@ -23,7 +23,11 @@ def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
 
 
 if __name__ == '__main__':
-    game_count_report_toggle = [int(sys.argv[1])]
-    if len(sys.argv) == 3:
-        game_count_report_toggle.append(sys.argv[2])
-    run_random_tic_tac_toe_simulation(*game_count_report_toggle)
+    run_random_tic_tac_toe_simulation(10, 'r')
+
+    # uncomment the below code to run from command line
+
+    # game_count_and_report_toggle = [int(sys.argv[1])]
+    # if len(sys.argv) == 3:
+    #     game_count_and_report_toggle.append(sys.argv[2])
+    # run_random_tic_tac_toe_simulation(*game_count_and_report_toggle)
