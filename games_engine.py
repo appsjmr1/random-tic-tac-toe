@@ -39,7 +39,6 @@ class GamesEngine:
         temp = self.state_of_game.next_move
         self.state_of_game.next_move = self.state_of_game.previous_move
         self.state_of_game.previous_move = temp
-        return True
 
     def game_is_over(self):
         game_result_as_string = ''

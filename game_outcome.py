@@ -10,6 +10,7 @@ class GameOutcome:
     def find_winner_or_tie(self, state_of_game, row_index_of_move, column_index_of_move):
 
         self.set_board_and_move(state_of_game, row_index_of_move, column_index_of_move)
+
         if self.check_row_containing_move_for_win():
             return self.game_outcome
         if self.check_column_containing_move_for_win():
