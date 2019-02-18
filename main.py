@@ -1,25 +1,24 @@
 import sys
 from games_engine import GamesEngine
-from report_on_game import ReportOnGame
-from report_on_many_games import ReportOnManyGames
+from game_report import GameReport
+from many_games_report import ManyGamesReport
 
 
 def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
+    games_engine = prepare_reports(report_all_games)
+    games_engine.play_many_games(num_games_to_play)
+    report_on_many_games = list(games_engine.reports_requested).pop()
+    report_on_many_games.report_outcome_statistics()
 
+
+def prepare_reports(report_all_games):
     report_requests = []
     if report_all_games is not None:
-        report_on_game_instance = ReportOnGame()
-        report_requests.append(report_on_game_instance)
-    report_on_many_games_instance = ReportOnManyGames()
-    report_requests.append(report_on_many_games_instance)
-
-    games_engine_instance = GamesEngine(*report_requests)
-
-    # parameter passed to play_many_games determines the number of games that will be played
-    games_engine_instance.play_many_games(num_games_to_play)
-
-    # shows percentage of wins from X and O as well as percentage of ties
-    report_on_many_games_instance.report_outcome_statistics()
+        report_on_game = GameReport()
+        report_requests.append(report_on_game)
+    report_on_many_games = ManyGamesReport()
+    report_requests.append(report_on_many_games)
+    return GamesEngine(*report_requests)
 
 
 if __name__ == '__main__':
