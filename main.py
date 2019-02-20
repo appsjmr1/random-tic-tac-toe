@@ -22,7 +22,7 @@ def prepare_reports(report_all_games):
 
 
 if __name__ == '__main__':
-    run_random_tic_tac_toe_simulation(10, 'r')
+    run_random_tic_tac_toe_simulation(1000000)
 
     # uncomment the below code to run from command line
 

@@ -30,45 +30,37 @@ class GameOutcome:
         self.column_index_of_move = column_index_of_move
 
     def check_row_containing_move_for_win(self):
-        total = 0
-        for column in range(3):
-            total = total + int(self.letter_dict[self.state_of_game.board[self.row_index_of_move][column]])
-            if abs(total) == 3:
-                winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
-                self.game_outcome = winning_letter
-                return True
+        total = sum([self.letter_dict[self.state_of_game.board[self.row_index_of_move][column]] for column in range(3)])
+        if abs(total) == 3:
+            winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
+            self.game_outcome = winning_letter
+            return True
         return False
 
     def check_column_containing_move_for_win(self):
-        total = 0
-        for row in range(3):
-            total = total + int(self.letter_dict[self.state_of_game.board[row][self.column_index_of_move]])
-            if abs(total) == 3:
-                winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
-                self.game_outcome = winning_letter
-                return True
+        total = sum([self.letter_dict[self.state_of_game.board[row][self.column_index_of_move]] for row in range(3)])
+        if abs(total) == 3:
+            winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
+            self.game_outcome = winning_letter
+            return True
         return False
 
     def check_main_diagonal_for_win_iff_it_contains_move(self):
         if self.row_index_of_move == self.column_index_of_move:
-            total = 0
-            for diagonal_indexing in range(3):
-                total = total + int(self.letter_dict[self.state_of_game.board[diagonal_indexing][diagonal_indexing]])
-                if abs(total) == 3:
-                    winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
-                    self.game_outcome = winning_letter
-                    return True
+            total = sum([self.letter_dict[self.state_of_game.board[diagonal_indexing][diagonal_indexing]] for diagonal_indexing in range(3)])
+            if abs(total) == 3:
+                winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
+                self.game_outcome = winning_letter
+                return True
         return False
 
     def check_off_diagonal_for_win_iff_it_contains_move(self):
         if self.row_index_of_move + self.column_index_of_move == 2:
-            total = 0
-            for off_diagonal_indexing in range(3):
-                total = total + int(self.letter_dict[self.state_of_game.board[off_diagonal_indexing][2 - off_diagonal_indexing]])
-                if abs(total) == 3:
-                    winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
-                    self.game_outcome = winning_letter
-                    return True
+            total = sum([self.letter_dict[self.state_of_game.board[off_diagonal_indexing][2 - off_diagonal_indexing]] for off_diagonal_indexing in range(3)])
+            if abs(total) == 3:
+                winning_letter = self.state_of_game.board[self.row_index_of_move][self.column_index_of_move]
+                self.game_outcome = winning_letter
+                return True
         return False
 
     def check_for_tie(self):
