@@ -1,5 +1,10 @@
 class GameOutcome:
 
+    """ This class provides the find_winner_or_tie for external use.
+    The method takes in a game state (board) and the row and column of the most recent move.
+    And the method returns if x won, if o won, if there is a tie, or if the game isn't over.
+    See find_winner_or_tie for more details."""
+
     def __init__(self):
         self._letter_dict = {'X': -1, 'O': 1, ' ': 0}
         self._game_state = None
