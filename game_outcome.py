@@ -9,14 +9,18 @@ class GameOutcome:
 
     def find_winner_or_tie(self, game_state, row, col):
 
-        """ Check if either player has won, or if a tie has occurred. Return 'X' or 'O'
-            for a win, 'Tie' for a tie, and None when the game is not over.
+        """ Checks for a win or a tie.
 
             Parameters:
-              game_state:  state of the game
-              row:    row of the last move
-              col:    column of the last move
-        """
+                game_state: state of the game
+                row: row of the last move
+                col: column of the last move
+
+            Return:
+                'X': If x won
+                'O': If o won
+                'Tie': If game is tied
+                None: If game is not over """
 
         self._set_board_and_move(game_state, row, col)
 
@@ -39,6 +43,7 @@ class GameOutcome:
         self._col = column_index_of_move
 
     def _check_row(self):
+        """Checks the row containing the most recent move to see if there is a win"""
         total = sum([self._letter_dict[self._game_state.board[self._row][column]] for column in range(3)])
         if abs(total) == 3:
             winning_letter = self._game_state.board[self._row][self._col]
@@ -47,6 +52,7 @@ class GameOutcome:
         return False
 
     def _check_column(self):
+        """Checks the column containing the most recent move to see if there is a win"""
         total = sum([self._letter_dict[self._game_state.board[row][self._col]] for row in range(3)])
         if abs(total) == 3:
             winning_letter = self._game_state.board[self._row][self._col]
@@ -55,7 +61,7 @@ class GameOutcome:
         return False
 
     def _check_main_diagonal(self):
-
+        """If most recent move is on the main diagonal, checks the main diagonal to see if there is a win"""
         if self._row == self._col:
             total = sum([self._letter_dict[self._game_state.board[diagonal_indexing][diagonal_indexing]] for diagonal_indexing in range(3)])
             if abs(total) == 3:
@@ -65,6 +71,7 @@ class GameOutcome:
         return False
 
     def _check_off_diagonal(self):
+        """If most recent move is on the off diagonal, checks the off diagonal to see if there is a win"""
         if self._row + self._col == 2:
             total = sum([self._letter_dict[self._game_state.board[off_diagonal_indexing][2 - off_diagonal_indexing]] for off_diagonal_indexing in range(3)])
             if abs(total) == 3:
