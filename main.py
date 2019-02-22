@@ -6,6 +6,8 @@ from many_games_report import ManyGamesReport
 
 def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
     games_engine = prepare_reports(report_all_games)
+    print('Here is the printout of games_engine:')
+    print(games_engine)
     games_engine.play_many_games(num_games_to_play)
     report_on_many_games = list(games_engine.reports_requested).pop()
     report_on_many_games.report_outcome_statistics()
@@ -14,15 +16,15 @@ def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
 def prepare_reports(report_all_games):
     report_requests = []
     if report_all_games is not None:
-        report_on_game = GameReport()
+        report_on_game = GameReport() ###
         report_requests.append(report_on_game)
-    report_on_many_games = ManyGamesReport()
+    report_on_many_games = ManyGamesReport() ###
     report_requests.append(report_on_many_games)
     return GamesEngine(*report_requests)
 
 
 if __name__ == '__main__':
-    run_random_tic_tac_toe_simulation(1000000)
+    run_random_tic_tac_toe_simulation(10, 'r')
 
     # uncomment the below code to run from command line
 

@@ -3,6 +3,9 @@ class ManyGamesReport:
     def __init__(self):
         self.count_wins_and_ties = {'X': 0, 'O': 0, 'Tie': 0}
 
+    def __repr__(self):
+        return "{}".format(self.__class__.__name__)
+
     def __call__(self, board, win_result):
         self.count_wins_and_ties[win_result] += 1
 

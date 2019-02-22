@@ -12,6 +12,9 @@ class GamesEngine:
         self.column_index_for_move = None
         self.reports_requested = reports_requested
 
+    def __repr__(self):
+        return "{}(*{})".format(self.__class__.__name__, self.reports_requested)
+
     def play_many_games(self, num_games_to_play):
         while num_games_to_play > 0:
             self.play_one_game()
