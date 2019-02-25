@@ -6,8 +6,6 @@ from many_games_report import ManyGamesReport
 
 def run_random_tic_tac_toe_simulation(num_games_to_play, report_all_games=None):
     games_engine = prepare_reports(report_all_games)
-    print('Here is the printout of games_engine:')
-    print(games_engine)
     games_engine.play_many_games(num_games_to_play)
     report_on_many_games = list(games_engine.reports_requested).pop()
     report_on_many_games.report_outcome_statistics()

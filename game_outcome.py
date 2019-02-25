@@ -8,7 +8,7 @@ class GameOutcome:
         self._game_outcome = None
 
     def __repr__(self):
-        return "{}".format(self.__class__.__name__)
+        return "{}()".format(self.__class__.__name__)
 
     def find_winner_or_tie(self, game_state, row, col):
 
